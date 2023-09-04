@@ -114,7 +114,7 @@ cc_library_shared {
     ],
 
     export_include_dirs: [
-	"interface"
+        "interface"
     ],
 
     static_libs: [
@@ -195,7 +195,7 @@ cc_library_shared {
 
     shared_libs: [
         "libvsomeip3",
-	"liblog",
+        "liblog",
         "libboost_thread"
     ]
 }
@@ -206,7 +206,8 @@ cc_defaults {
     owner: "ts",
     host_supported: true,
     shared_libs: [
-        "libvsomeip3"
+        "libvsomeip3",
+        "liblog"
     ],
 }
 
@@ -215,7 +216,7 @@ cc_binary {
     defaults: ["vsomeip_example_defaults"],
 
     srcs: [
-        "examples/hello_world/hello_world_client.cpp",
+        "examples/hello_world/hello_world_client_main.cpp",
     ],
 }
 
@@ -224,7 +225,7 @@ cc_binary {
     defaults: ["vsomeip_example_defaults"],
 
     srcs: [
-        "examples/hello_world/hello_world_service.cpp",
+        "examples/hello_world/hello_world_service_main.cpp",
     ],
 }
 
