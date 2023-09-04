@@ -27,12 +27,12 @@ cc_defaults {
     name: "vsomeip_defaults",
 
     header_libs: [
-        "libboost_headers",
+        "libboost_library_headers",
     ],
 
     local_include_dirs: [
         "interface",
-        "implementation/helper/1.70",
+        "implementation/helper/1.76",
     ],
 
     rtti: true,
@@ -73,7 +73,7 @@ cc_library_shared {
 
     local_include_dirs: [
         "interface",
-        "implementation/helper/1.70"
+        "implementation/helper/1.76"
     ],
 
     export_include_dirs: [
@@ -106,7 +106,7 @@ cc_library_shared {
 
     local_include_dirs: [
         "interface",
-        "implementation/helper/1.70"
+        "implementation/helper/1.76"
     ],
 
     shared_libs: [
@@ -130,7 +130,7 @@ cc_library_shared {
 
     local_include_dirs: [
         "interface",
-        "implementation/helper/1.70"
+        "implementation/helper/1.76"
     ],
 
     shared_libs: [
@@ -153,7 +153,7 @@ cc_library_shared {
 
     local_include_dirs: [
         "interface",
-        "implementation/helper/1.70"
+        "implementation/helper/1.76"
     ],
 
     shared_libs: [
