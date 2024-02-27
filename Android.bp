@@ -1,14 +1,14 @@
 libvsomeip_srcs = [
-   "implementation/endpoints/**/*.cpp",
-   "implementation/logging/**/*.cpp",
-   "implementation/tracing/**/*.cpp",
-   "implementation/message/**/*.cpp",
-   "implementation/routing/**/*.cpp",
-   "implementation/runtime/**/*.cpp",
-   "implementation/utility/**/*.cpp",
-   "implementation/plugin/**/*.cpp",
-   "implementation/security/**/*.cpp",
-   "implementation/logger/**/*.cpp",
+    "implementation/endpoints/**/*.cpp",
+    "implementation/logging/**/*.cpp",
+    "implementation/tracing/**/*.cpp",
+    "implementation/message/**/*.cpp",
+    "implementation/routing/**/*.cpp",
+    "implementation/runtime/**/*.cpp",
+    "implementation/utility/**/*.cpp",
+    "implementation/plugin/**/*.cpp",
+    "implementation/security/**/*.cpp",
+    "implementation/logger/**/*.cpp",
 ]
 
 libvsomeip_cfg_srcs = [
@@ -54,42 +54,47 @@ cc_defaults {
         "-Wno-header-guard",
         "-Wno-overloaded-virtual",
         "-Wno-implicit-fallthrough",
-        "-Wno-macro-redefined"
+        "-Wno-macro-redefined",
     ],
 
     target: {
-      linux_glibc: {
-        cppflags: [
-          // Soong is always adding -DANDROID even for the host
-          "-UANDROID",
-        ],
-        generated_headers: [
-          "vsomeip_gen_internal_hpp",
-        ]
-      }
+        linux_glibc: {
+            cppflags: [
+                // Soong is always adding -DANDROID even for the host
+                "-UANDROID",
+                "-DVSOMEIP_BASE_PATH=\"/tmp/\"",
+            ],
+            generated_headers: [
+                "vsomeip_gen_internal_hpp",
+            ],
+        },
+        android: {
+            cppflags: [
+                "-DVSOMEIP_BASE_PATH=\"/data/\"",
+            ],
+        },
     },
 }
 
 // Adapted from CMakeLists.txt
 gensrcs {
-  name: "vsomeip_gen_internal_hpp",
-  srcs: [
-    "implementation/configuration/include/internal.hpp.in"
-  ],
-  cmd: "sed" +
-       " -e \"s|@DEFAULT_CONFIGURATION_FILE@|/etc/vsomeip.json|g\"" +
-       " -e \"s|@DEFAULT_CONFIGURATION_FOLDER@|/etc/vsomeip|g\"" +
-       " -e \"s|@VSOMEIP_BASE_PATH@|/data|g\"" +
-       " -e \"s|@VSOMEIP_MAJOR_VERSION@||g\"" +
-       " -e \"s|@VSOMEIP_DIAGNOSIS_ADDRESS@|0x01|g\"" +
-       " -e \"s|libvsomeip3-cfg\\.so\\.|libvsomeip3-cfg.so|g\"" +
-       " -e \"s|libvsomeip3-sd\\.so\\.|libvsomeip3-sd.so|g\"" +
-       " -e \"s|libvsomeip3-e2e\\.so\\.|libvsomeip3-e2e.so|g\"" +
-       " -e \"s|libvsomeip3-sec\\.so\\.|libvsomeip3-sec.so|g\"" +
-       " -e \"s|@VSOMEIP_UNICAST_ADDRESS@|127.0.0.1|g\"" +
-       " -e \"s|@VSOMEIP_ROUTING_READY_MESSAGE@|SOME/IP routing ready.|g\"" +
-       " $(in) > $(out) &&" +
-       " install $(out) external/sdv/vsomeip/implementation/configuration/include/internal.hpp"
+    name: "vsomeip_gen_internal_hpp",
+    srcs: [
+        "implementation/configuration/include/internal.hpp.in",
+    ],
+    cmd: "sed" +
+        " -e \"s|@DEFAULT_CONFIGURATION_FILE@|/etc/vsomeip.json|g\"" +
+        " -e \"s|@DEFAULT_CONFIGURATION_FOLDER@|/etc/vsomeip|g\"" +
+        " -e \"s|@VSOMEIP_MAJOR_VERSION@||g\"" +
+        " -e \"s|@VSOMEIP_DIAGNOSIS_ADDRESS@|0x01|g\"" +
+        " -e \"s|libvsomeip3-cfg\\.so\\.|libvsomeip3-cfg.so|g\"" +
+        " -e \"s|libvsomeip3-sd\\.so\\.|libvsomeip3-sd.so|g\"" +
+        " -e \"s|libvsomeip3-e2e\\.so\\.|libvsomeip3-e2e.so|g\"" +
+        " -e \"s|libvsomeip3-sec\\.so\\.|libvsomeip3-sec.so|g\"" +
+        " -e \"s|@VSOMEIP_UNICAST_ADDRESS@|127.0.0.1|g\"" +
+        " -e \"s|@VSOMEIP_ROUTING_READY_MESSAGE@|SOME/IP routing ready.|g\"" +
+        " $(in) > $(out) &&" +
+        " install $(out) external/sdv/vsomeip/implementation/configuration/include/internal.hpp",
 }
 
 cc_library_shared {
@@ -99,23 +104,22 @@ cc_library_shared {
     srcs: libvsomeip_srcs,
 
     defaults: [
-        "vsomeip_defaults"
+        "vsomeip_defaults",
     ],
 
     cflags: [
         "-DWITHOUT_SYSTEMD",
-        "-DVSOMEIP_BASE_PATH=\"/data/\""
     ],
 
     rtti: true,
 
     local_include_dirs: [
         "interface",
-        "implementation/helper/1.76"
+        "implementation/helper/1.76",
     ],
 
     export_include_dirs: [
-        "interface"
+        "interface",
     ],
 
     static_libs: [
@@ -126,8 +130,8 @@ cc_library_shared {
 
     shared_libs: [
         "liblog",
-        "libutils"
-    ]
+        "libutils",
+    ],
 }
 
 cc_library_shared {
@@ -137,21 +141,21 @@ cc_library_shared {
     srcs: libvsomeip_cfg_srcs,
 
     defaults: [
-        "vsomeip_defaults"
+        "vsomeip_defaults",
     ],
 
     rtti: true,
 
     local_include_dirs: [
         "interface",
-        "implementation/helper/1.76"
+        "implementation/helper/1.76",
     ],
 
     shared_libs: [
         "libvsomeip3",
         "libboost_system",
-        "libboost_filesystem"
-    ]
+        "libboost_filesystem",
+    ],
 }
 
 cc_library_shared {
@@ -161,20 +165,20 @@ cc_library_shared {
     srcs: libvsomeip_e2e_srcs,
 
     defaults: [
-        "vsomeip_defaults"
+        "vsomeip_defaults",
     ],
 
     rtti: true,
 
     local_include_dirs: [
         "interface",
-        "implementation/helper/1.76"
+        "implementation/helper/1.76",
     ],
 
     shared_libs: [
         "libvsomeip3",
-        "liblog"
-    ]
+        "liblog",
+    ],
 }
 
 cc_library_shared {
@@ -184,21 +188,21 @@ cc_library_shared {
     srcs: libvsomeip_sd_srcs,
 
     defaults: [
-        "vsomeip_defaults"
+        "vsomeip_defaults",
     ],
 
     rtti: true,
 
     local_include_dirs: [
         "interface",
-        "implementation/helper/1.76"
+        "implementation/helper/1.76",
     ],
 
     shared_libs: [
         "libvsomeip3",
         "liblog",
-        "libboost_thread"
-    ]
+        "libboost_thread",
+    ],
 }
 
 cc_defaults {
@@ -208,7 +212,7 @@ cc_defaults {
     host_supported: true,
     shared_libs: [
         "libvsomeip3",
-        "liblog"
+        "liblog",
     ],
 }
 
