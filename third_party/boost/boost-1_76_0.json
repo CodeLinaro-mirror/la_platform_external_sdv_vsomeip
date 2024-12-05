@@ -15,7 +15,8 @@
       "cflags": [
         "-Wall",
         "-Werror",
-        "-fexceptions"
+        "-fexceptions",
+        "-Wno-enum-constexpr-conversion"
       ],
       "visibility": ["//external/sdv/vsomeip"]
     },
