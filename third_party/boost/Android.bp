@@ -33,7 +33,6 @@ cc_defaults {
     "-Wall",
     "-Werror",
     "-fexceptions",
-    "-Wno-enum-constexpr-conversion",
   ],
   host_supported: true,
   rtti: true,
