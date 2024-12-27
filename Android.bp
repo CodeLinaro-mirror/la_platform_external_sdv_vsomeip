@@ -55,7 +55,6 @@ cc_defaults {
         "-Wno-overloaded-virtual",
         "-Wno-implicit-fallthrough",
         "-Wno-macro-redefined",
-        "-Wno-enum-constexpr-conversion",
     ],
 
     target: {
@@ -110,7 +109,6 @@ cc_library_shared {
 
     cflags: [
         "-DWITHOUT_SYSTEMD",
-        "-Wno-enum-constexpr-conversion",
     ],
 
     rtti: true,
