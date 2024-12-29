@@ -16,7 +16,6 @@
         "-Wall",
         "-Werror",
         "-fexceptions",
-        "-Wno-enum-constexpr-conversion"
       ],
       "visibility": ["//external/sdv/vsomeip"]
     },
