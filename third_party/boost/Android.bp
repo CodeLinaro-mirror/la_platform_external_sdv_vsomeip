@@ -42,6 +42,11 @@ cc_defaults {
         "-msse4.1",
       ],
     },
+    musl:  {
+      cflags: [
+        "-msse4.1",
+      ],
+    },
   },
   vendor_available: true,
   visibility: [
