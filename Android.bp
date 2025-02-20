@@ -58,7 +58,7 @@ cc_defaults {
     ],
 
     target: {
-        linux_glibc: {
+        host_linux: {
             cppflags: [
                 // Soong is always adding -DANDROID even for the host
                 "-UANDROID",
